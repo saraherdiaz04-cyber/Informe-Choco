@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informe Alertas Deforestación — Minería | Chocó</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-900: #0d3b1e;
+    --green-800: #1a6b3c;
+    --green-700: #2e7d32;
+    --green-600: #388e3c;
+    --green-400: #66bb6a;
+    --green-100: #e8f5e9;
+    --green-50:  #f1f8f2;
+    --amber-800: #854f0b;
+    --amber-100: #faeeda;
+    --blue-800:  #185fa5;
+    --blue-100:  #e6f1fb;
+    --gray-900:  #1a1a1a;
+    --gray-700:  #333;
+    --gray-500:  #666;
+    --gray-300:  #ccc;
+    --gray-100:  #f5f5f5;
+    --gray-50:   #fafafa;
+    --white:     #fff;
+    --shadow:    0 2px 12px rgba(0,0,0,0.08);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    color: var(--gray-700);
+    background: #f0f2f0;
+    line-height: 1.65;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--green-900);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 52px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  }
+  .nav-brand {
+    color: #fff; font-size: 13px; font-weight: 500; letter-spacing: 0.04em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .nav-brand span { color: var(--green-400); }
+  .nav-links { display: flex; gap: 1.5rem; }
+  .nav-links a {
+    color: rgba(255,255,255,0.7); font-size: 12px; text-decoration: none;
+    letter-spacing: 0.05em; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green-400); }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1080px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--green-900);
+    border-radius: 12px;
+    padding: 3rem 3rem 2.5rem;
+    margin-bottom: 2rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 80% 50%, rgba(102,187,106,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badges { display: flex; gap: 8px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.06em;
+    padding: 4px 12px; border-radius: 100px;
+  }
+  .badge-green { background: rgba(102,187,106,0.2); color: var(--green-400); border: 1px solid rgba(102,187,106,0.3); }
+  .badge-amber { background: var(--amber-100); color: var(--amber-800); }
+  .hero h1 {
+    font-size: 2rem; font-weight: 600; color: #fff;
+    line-height: 1.2; margin-bottom: 0.5rem;
+  }
+  .hero h1 em { color: var(--green-400); font-style: normal; }
+  .hero-sub { color: rgba(255,255,255,0.55); font-size: 13px; margin-bottom: 2rem; }
+  .hero-metrics {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1px; background: rgba(255,255,255,0.1);
+    border-radius: 8px; overflow: hidden;
+  }
+  .hero-metric {
+    background: rgba(255,255,255,0.06);
+    padding: 1rem 1.25rem;
+    transition: background 0.2s;
+  }
+  .hero-metric:hover { background: rgba(255,255,255,0.1); }
+  .hero-metric-label { font-size: 11px; color: rgba(255,255,255,0.5); letter-spacing: 0.05em; margin-bottom: 4px; }
+  .hero-metric-value { font-size: 1.5rem; font-weight: 600; color: #fff; line-height: 1; }
+  .hero-metric-sub { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 3px; }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--white); border-radius: 10px;
+    box-shadow: var(--shadow); padding: 1.75rem 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .card-title {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+    color: var(--green-800); text-transform: uppercase;
+    margin-bottom: 1.25rem; padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--green-100);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card-title svg { flex-shrink: 0; }
+
+  /* ── GRID ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* ── BAR CHARTS ── */
+  .bar-list { display: flex; flex-direction: column; gap: 10px; }
+  .bar-item { display: flex; align-items: center; gap: 10px; }
+  .bar-name { font-size: 12px; color: var(--gray-500); width: 160px; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar-track { flex: 1; height: 10px; background: var(--gray-100); border-radius: 5px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 5px; transition: width 0.6s ease; }
+  .bar-val { font-size: 12px; font-weight: 600; color: var(--gray-700); min-width: 42px; text-align: right; font-family: 'IBM Plex Mono', monospace; }
+
+  /* ── MINI YEAR CHART ── */
+  .year-chart { display: flex; gap: 1.5rem; align-items: flex-end; height: 120px; padding: 0 1rem; }
+  .year-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; justify-content: flex-end; }
+  .year-bar { width: 100%; border-radius: 6px 6px 0 0; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 6px; }
+  .year-bar span { font-size: 1.1rem; font-weight: 600; color: #fff; }
+  .year-label { font-size: 13px; color: var(--gray-500); }
+  .year-pct { font-size: 11px; color: var(--gray-300); }
+
+  /* ── RESERVAS ── */
+  .reserva-list { display: flex; flex-direction: column; gap: 0; }
+  .reserva-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 0; border-bottom: 1px solid var(--gray-100);
+  }
+  .reserva-item:last-child { border-bottom: none; }
+  .reserva-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .reserva-text { flex: 1; font-size: 13px; color: var(--gray-700); }
+  .reserva-count { font-size: 12px; font-weight: 600; font-family: 'IBM Plex Mono', monospace; color: var(--gray-500); white-space: nowrap; }
+
+  /* ── FUENTES ── */
+  .fonte-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 0; border-bottom: 1px solid var(--gray-100); font-size: 13px;
+  }
+  .fonte-row:last-child { border-bottom: none; }
+  .fonte-name { flex: 1; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--green-800); }
+  .fonte-bar { width: 80px; height: 6px; background: var(--gray-100); border-radius: 3px; overflow: hidden; }
+  .fonte-bar-fill { height: 100%; border-radius: 3px; background: var(--green-600); }
+  .fonte-num { font-weight: 600; color: var(--gray-700); min-width: 20px; text-align: right; }
+
+  /* ── TABLE ── */
+  .table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--gray-100); }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  thead tr { background: var(--green-900); }
+  thead th {
+    padding: 10px 12px; text-align: left; font-size: 11px; font-weight: 500;
+    letter-spacing: 0.06em; color: rgba(255,255,255,0.85); white-space: nowrap;
+  }
+  tbody tr:nth-child(even) { background: var(--green-50); }
+  tbody tr:hover { background: var(--green-100); }
+  tbody td {
+    padding: 9px 12px; border-bottom: 1px solid var(--gray-100);
+    color: var(--gray-700); vertical-align: middle;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  .mono { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; }
+  .tag {
+    display: inline-block; font-size: 10px; padding: 2px 8px;
+    border-radius: 100px; font-weight: 500; white-space: nowrap;
+  }
+  .tag-24 { background: var(--blue-100); color: var(--blue-800); }
+  .tag-25 { background: var(--green-100); color: var(--green-700); }
+  .tag-pac { background: var(--green-100); color: var(--green-800); }
+  .tag-and { background: #ede7f6; color: #512da8; }
+
+  /* ── GLOSARIO ── */
+  .glosario-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
+  .glos-item {
+    background: var(--gray-50); border: 1px solid var(--gray-100);
+    border-radius: 8px; padding: 10px 14px;
+  }
+  .glos-key { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--green-800); font-weight: 500; }
+  .glos-val { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
+
+  /* ── ALERT BOX ── */
+  .alert-box {
+    background: #fff8e1; border-left: 4px solid #ffc107;
+    border-radius: 0 8px 8px 0; padding: 0.9rem 1.25rem;
+    font-size: 13px; color: #5d4037; margin-top: 1rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center; padding: 2rem 0 1rem;
+    font-size: 12px; color: var(--gray-300);
+  }
+  footer strong { color: var(--green-700); }
+
+  /* ── PRINT ── */
+  @media print {
+    nav { display: none; }
+    .card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+    .hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    🌿 <span>Alerta Deforestación</span> — Chocó · Minería
+  </div>
+  <div class="nav-links">
+    <a href="#resumen">Resumen</a>
+    <a href="#municipios">Municipios</a>
+    <a href="#fuentes">Fuentes</a>
+    <a href="#reservas">Reservas</a>
+    <a href="#detalle">Detalle</a>
+    <a href="#glosario">Glosario</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero" id="resumen">
+    <div class="hero-badges">
+      <span class="badge badge-green">🇨🇴 Chocó, Colombia</span>
+      <span class="badge badge-amber">⛏️ Vector de presión: Minería</span>
+      <span class="badge badge-green">2024 – 2025</span>
+    </div>
+    <h1>Informe de alertas de<br><em>deforestación por minería</em></h1>
+    <p class="hero-sub">Fuente: dashboard_alerts_shapefile · Tabla de atributos original en portugués · Filtro: department = Chocó / vpressao = mining</p>
+    <div class="hero-metrics">
+      <div class="hero-metric">
+        <div class="hero-metric-label">TOTAL ALERTAS</div>
+        <div class="hero-metric-value">17</div>
+        <div class="hero-metric-sub">Período 2024–2025</div>
+      </div>
+      <div class="hero-metric">
+        <div class="hero-metric-label">ÁREA TOTAL</div>
+        <div class="hero-metric-value">82,92</div>
+        <div class="hero-metric-sub">hectáreas afectadas</div>
+      </div>
+      <div class="hero-metric">
+        <div class="hero-metric-label">ÁREA PROMEDIO</div>
+        <div class="hero-metric-value">4,88</div>
+        <div class="hero-metric-sub">ha por alerta</div>
+      </div>
+      <div class="hero-metric">
+        <div class="hero-metric-label">ÁREA MÁXIMA</div>
+        <div class="hero-metric-value">21,41</div>
+        <div class="hero-metric-sub">ha · Lloró (40193667)</div>
+      </div>
+      <div class="hero-metric">
+        <div class="hero-metric-label">MUNICIPIOS</div>
+        <div class="hero-metric-value">10</div>
+        <div class="hero-metric-sub">con al menos 1 alerta</div>
+      </div>
+      <div class="hero-metric">
+        <div class="hero-metric-label">BIOMA PRINCIPAL</div>
+        <div class="hero-metric-value" style="font-size:0.95rem;padding-top:4px;">Bh Trop.<br>Pacífico</div>
+        <div class="hero-metric-sub">94,1% de alertas</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MUNICIPIOS + AÑO -->
+  <div class="two-col" id="municipios">
+    <div class="card">
+      <div class="card-title">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Alertas por municipio
+      </div>
+      <div class="bar-list">
+        <div class="bar-item"><span class="bar-name">Condoto</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:#1A6B3C;"></div></div><span class="bar-val">3</span></div>
+        <div class="bar-item"><span class="bar-name">Valledupar *</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:#1A6B3C;"></div></div><span class="bar-val">3</span></div>
+        <div class="bar-item"><span class="bar-name">Istmina</span><div class="bar-track"><div class="bar-fill" style="width:66%;background:#388E3C;"></div></div><span class="bar-val">2</span></div>
+        <div class="bar-item"><span class="bar-name">Rio Quito</span><div class="bar-track"><div class="bar-fill" style="width:66%;background:#388E3C;"></div></div><span class="bar-val">2</span></div>
+        <div class="bar-item"><span class="bar-name">Nóvita</span><div class="bar-track"><div class="bar-fill" style="width:66%;background:#388E3C;"></div></div><span class="bar-val">2</span></div>
+        <div class="bar-item"><span class="bar-name">Lloró</span><div class="bar-track"><div class="bar-fill" style="width:33%;background:#81C784;"></div></div><span class="bar-val">1</span></div>
+        <div class="bar-item"><span class="bar-name">Cantón del San Pablo</span><div class="bar-track"><div class="bar-fill" style="width:33%;background:#81C784;"></div></div><span class="bar-val">1</span></div>
+        <div class="bar-item"><span class="bar-name">Cértegui</span><div class="bar-track"><div class="bar-fill" style="width:33%;background:#81C784;"></div></div><span class="bar-val">1</span></div>
+        <div class="bar-item"><span class="bar-name">Unión Panamericana</span><div class="bar-track"><div class="bar-fill" style="width:33%;background:#81C784;"></div></div><span class="bar-val">1</span></div>
+        <div class="bar-item"><span class="bar-name">Medio Atrato</span><div class="bar-track"><div class="bar-fill" style="width:33%;background:#81C784;"></div></div><span class="bar-val">1</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Distribución por año
+      </div>
+      <div class="year-chart">
+        <div class="year-bar-wrap">
+          <div class="year-bar" style="height:70%;background:#185FA5;"><span>8</span></div>
+          <div class="year-label">2024</div>
+          <div class="year-pct">47,1%</div>
+        </div>
+        <div class="year-bar-wrap">
+          <div class="year-bar" style="height:84%;background:#1A6B3C;"><span>9</span></div>
+          <div class="year-label">2025</div>
+          <div class="year-pct">52,9%</div>
+        </div>
+      </div>
+      <div style="margin-top:1.5rem;">
+        <div class="card-title" style="margin-bottom:0.75rem;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>
+          Área por municipio (ha)
+        </div>
+        <div class="bar-list">
+          <div class="bar-item"><span class="bar-name">Condoto</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:#F59E0B;"></div></div><span class="bar-val">22,71</span></div>
+          <div class="bar-item"><span class="bar-name">Lloró</span><div class="bar-track"><div class="bar-fill" style="width:94%;background:#F59E0B;"></div></div><span class="bar-val">21,41</span></div>
+          <div class="bar-item"><span class="bar-name">Valledupar *</span><div class="bar-track"><div class="bar-fill" style="width:60%;background:#FCD34D;"></div></div><span class="bar-val">13,70</span></div>
+          <div class="bar-item"><span class="bar-name">Cantón del San Pablo</span><div class="bar-track"><div class="bar-fill" style="width:29%;background:#FDE68A;"></div></div><span class="bar-val">6,55</span></div>
+          <div class="bar-item"><span class="bar-name">Nóvita</span><div class="bar-track"><div class="bar-fill" style="width:22%;background:#FDE68A;"></div></div><span class="bar-val">5,02</span></div>
+          <div class="bar-item"><span class="bar-name">Cértegui</span><div class="bar-track"><div class="bar-fill" style="width:15%;background:#FDE68A;"></div></div><span class="bar-val">3,43</span></div>
+          <div class="bar-item"><span class="bar-name">Istmina</span><div class="bar-track"><div class="bar-fill" style="width:14%;background:#FDE68A;"></div></div><span class="bar-val">3,27</span></div>
+          <div class="bar-item"><span class="bar-name">Unión Panamericana</span><div class="bar-track"><div class="bar-fill" style="width:12%;background:#FEF3C7;"></div></div><span class="bar-val">2,63</span></div>
+          <div class="bar-item"><span class="bar-name">Rio Quito</span><div class="bar-track"><div class="bar-fill" style="width:11%;background:#FEF3C7;"></div></div><span class="bar-val">2,44</span></div>
+          <div class="bar-item"><span class="bar-name">Medio Atrato</span><div class="bar-track"><div class="bar-fill" style="width:8%;background:#FEF3C7;"></div></div><span class="bar-val">1,76</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FUENTES + RESERVAS -->
+  <div class="two-col">
+    <div class="card" id="fuentes">
+      <div class="card-title">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Fuentes de detección satelital
+      </div>
+      <div>
+        <div class="fonte-row"><span class="fonte-name">IDEAM</span><div class="fonte-bar"><div class="fonte-bar-fill" style="width:100%;"></div></div><span class="fonte-num">7</span></div>
+        <div class="fonte-row"><span class="fonte-name">GLAD-S</span><div class="fonte-bar"><div class="fonte-bar-fill" style="width:43%;"></div></div><span class="fonte-num">3</span></div>
+        <div class="fonte-row"><span class="fonte-name">GLAD-S + IDEAM</span><div class="fonte-bar"><div class="fonte-bar-fill" style="width:29%;"></div></div><span class="fonte-num">2</span></div>
+        <div class="fonte-row"><span class="fonte-name">RADD</span><div class="fonte-bar"><div class="fonte-bar-fill" style="width:29%;"></div></div><span class="fonte-num">2</span></div>
+        <div class="fonte-row"><span class="fonte-name">LUCA</span><div class="fonte-bar"><div class="fonte-bar-fill" style="width:14%;"></div></div><span class="fonte-num">1</span></div>
+        <div class="fonte-row"><span class="fonte-name">GLAD-S + IDEAM + LUCA</span><div class="fonte-bar"><div class="fonte-bar-fill" style="width:14%;"></div></div><span class="fonte-num">1</span></div>
+        <div class="fonte-row"><span class="fonte-name">GLAD-L + IDEAM</span><div class="fonte-bar"><div class="fonte-bar-fill" style="width:14%;"></div></div><span class="fonte-num">1</span></div>
+      </div>
+      <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--gray-100);font-size:12px;color:var(--gray-500);">
+        <strong style="color:var(--gray-700);">IDEAM</strong> — Inst. Hidrología, Meteorología y Estudios Ambientales ·
+        <strong style="color:var(--gray-700);">GLAD</strong> — Global Land Analysis &amp; Discovery (U. Maryland) ·
+        <strong style="color:var(--gray-700);">RADD</strong> — Radar for Detecting Deforestation (Wageningen U.) ·
+        <strong style="color:var(--gray-700);">LUCA</strong> — Land Use Change Alerts
+      </div>
+    </div>
+
+    <div class="card" id="reservas">
+      <div class="card-title">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
+        Bioma y reservas forestales (Ley 2ª/1959)
+      </div>
+      <div style="margin-bottom:1rem;">
+        <div style="font-size:12px;color:var(--gray-500);margin-bottom:6px;">Bioma</div>
+        <div class="bar-item"><span class="bar-name">Bh Trop. Pacífico</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:#1A6B3C;"></div></div><span class="bar-val">16</span></div>
+        <div class="bar-item" style="margin-top:6px;"><span class="bar-name">Andes</span><div class="bar-track"><div class="bar-fill" style="width:6%;background:#7C3AED;"></div></div><span class="bar-val">1</span></div>
+      </div>
+      <div style="font-size:12px;color:var(--gray-500);margin-bottom:8px;margin-top:1.25rem;">Reservas forestales</div>
+      <div class="reserva-list">
+        <div class="reserva-item">
+          <div class="reserva-dot" style="background:#1A6B3C;"></div>
+          <div class="reserva-text">Pacífico – Áreas con Previa Decisión de Ordenamiento</div>
+          <div class="reserva-count">12 &nbsp;·&nbsp; 70,6%</div>
+        </div>
+        <div class="reserva-item">
+          <div class="reserva-dot" style="background:#F59E0B;"></div>
+          <div class="reserva-text">Área de Reserva Forestal en Sustracción Definitiva</div>
+          <div class="reserva-count">3 &nbsp;·&nbsp; 17,6%</div>
+        </div>
+        <div class="reserva-item">
+          <div class="reserva-dot" style="background:#7C3AED;"></div>
+          <div class="reserva-text">Pacífico – Tipo A</div>
+          <div class="reserva-count">1 &nbsp;·&nbsp; 5,9%</div>
+        </div>
+        <div class="reserva-item">
+          <div class="reserva-dot" style="background:#EF4444;"></div>
+          <div class="reserva-text">Pacífico – Tipo A + Áreas con Previa Decisión</div>
+          <div class="reserva-count">1 &nbsp;·&nbsp; 5,9%</div>
+        </div>
+      </div>
+      <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--gray-100);font-size:12px;color:var(--gray-500);">
+        Ninguna alerta se superpone con territorios indígenas registrados en el campo <span style="font-family:monospace;color:var(--green-800);">indigenous</span>.
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLA DETALLE -->
+  <div class="card" id="detalle">
+    <div class="card-title">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      Detalle completo de las 17 alertas
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Municipio</th>
+            <th>Área (ha)</th>
+            <th>Año</th>
+            <th>Fecha detección</th>
+            <th>Fuente</th>
+            <th>Bioma</th>
+            <th>Publicación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="mono">40052147</td><td>Istmina</td><td class="mono">1,25</td><td><span class="tag tag-24">2024</span></td><td class="mono">2024-03-31</td><td class="mono" style="font-size:11px;">IDEAM</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2025-12-01</td></tr>
+          <tr><td class="mono">40055469</td><td>Valledupar *</td><td class="mono">2,67</td><td><span class="tag tag-24">2024</span></td><td class="mono">2024-06-30</td><td class="mono" style="font-size:11px;">IDEAM</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2025-11-19</td></tr>
+          <tr><td class="mono">40056544</td><td>Valledupar *</td><td class="mono">6,63</td><td><span class="tag tag-24">2024</span></td><td class="mono">2024-09-30</td><td class="mono" style="font-size:11px;">IDEAM</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2025-12-06</td></tr>
+          <tr><td class="mono">40056568</td><td>Rio Quito</td><td class="mono">1,70</td><td><span class="tag tag-24">2024</span></td><td class="mono">2024-09-30</td><td class="mono" style="font-size:11px;">GLAD-S + IDEAM</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2025-12-06</td></tr>
+          <tr><td class="mono">40057837</td><td>Rio Quito</td><td class="mono">0,74</td><td><span class="tag tag-24">2024</span></td><td class="mono">2024-12-31</td><td class="mono" style="font-size:11px;">IDEAM</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2025-11-21</td></tr>
+          <tr><td class="mono">40057848</td><td>Nóvita</td><td class="mono">4,21</td><td><span class="tag tag-24">2024</span></td><td class="mono">2024-12-31</td><td class="mono" style="font-size:11px;">IDEAM</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2025-11-21</td></tr>
+          <tr><td class="mono">40060609</td><td>Condoto</td><td class="mono">14,04</td><td><span class="tag tag-25">2025</span></td><td class="mono">2025-03-31</td><td class="mono" style="font-size:11px;">IDEAM</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2025-11-21</td></tr>
+          <tr><td class="mono">40156080</td><td>Medio Atrato</td><td class="mono">1,76</td><td><span class="tag tag-24">2024</span></td><td class="mono">2024-11-30</td><td class="mono" style="font-size:11px;">RADD</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2025-12-06</td></tr>
+          <tr><td class="mono">40156085</td><td>Valledupar *</td><td class="mono">4,40</td><td><span class="tag tag-24">2024</span></td><td class="mono">2024-11-30</td><td class="mono" style="font-size:11px;">RADD</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2025-12-06</td></tr>
+          <tr><td class="mono">40184869</td><td>Condoto</td><td class="mono">6,61</td><td><span class="tag tag-25">2025</span></td><td class="mono">2025-03-31</td><td class="mono" style="font-size:11px;">LUCA</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2026-03-02</td></tr>
+          <tr><td class="mono">40193667</td><td>Lloró</td><td class="mono" style="font-weight:600;color:#1A6B3C;">21,41</td><td><span class="tag tag-25">2025</span></td><td class="mono">2025-04-30</td><td class="mono" style="font-size:11px;">GLAD-S+IDEAM+LUCA</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2026-02-23</td></tr>
+          <tr><td class="mono">40218772</td><td>Cantón del San Pablo</td><td class="mono">6,55</td><td><span class="tag tag-25">2025</span></td><td class="mono">2025-05-31</td><td class="mono" style="font-size:11px;">GLAD-S</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2026-04-14</td></tr>
+          <tr><td class="mono">40221567</td><td>Cértegui</td><td class="mono">3,43</td><td><span class="tag tag-25">2025</span></td><td class="mono">2025-11-27</td><td class="mono" style="font-size:11px;">GLAD-S</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2026-04-14</td></tr>
+          <tr><td class="mono">40222364</td><td>Condoto</td><td class="mono">2,06</td><td><span class="tag tag-25">2025</span></td><td class="mono">2025-06-30</td><td class="mono" style="font-size:11px;">GLAD-S</td><td><span class="tag tag-and">Andes</span></td><td class="mono">2026-04-24</td></tr>
+          <tr><td class="mono">40227340</td><td>Unión Panamericana</td><td class="mono">2,63</td><td><span class="tag tag-25">2025</span></td><td class="mono">2025-06-30</td><td class="mono" style="font-size:11px;">IDEAM</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2026-04-24</td></tr>
+          <tr><td class="mono">40230329</td><td>Nóvita</td><td class="mono">0,81</td><td><span class="tag tag-25">2025</span></td><td class="mono">2025-03-31</td><td class="mono" style="font-size:11px;">GLAD-S + IDEAM</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2026-04-24</td></tr>
+          <tr><td class="mono">40231728</td><td>Istmina</td><td class="mono">2,02</td><td><span class="tag tag-25">2025</span></td><td class="mono">2025-03-31</td><td class="mono" style="font-size:11px;">GLAD-L + IDEAM</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2026-04-24</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="alert-box">
+      ⚠️ <strong>Nota:</strong> El municipio <em>Valledupar</em> aparece asignado al departamento del Chocó en los datos fuente (3 registros). Dado que Valledupar pertenece al departamento del Cesar, se recomienda verificar y corregir estas geometrías en el shapefile original.
+    </div>
+  </div>
+
+  <!-- GLOSARIO -->
+  <div class="card" id="glosario">
+    <div class="card-title">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      Glosario — tabla de atributos (portugués → español)
+    </div>
+    <div class="glosario-grid">
+      <div class="glos-item"><div class="glos-key">codealerta</div><div class="glos-val">Código de alerta — identificador único</div></div>
+      <div class="glos-item"><div class="glos-key">fonte</div><div class="glos-val">Fuente — sistema satelital de detección</div></div>
+      <div class="glos-item"><div class="glos-key">biome</div><div class="glos-val">Bioma — tipo de ecosistema</div></div>
+      <div class="glos-item"><div class="glos-key">department</div><div class="glos-val">Departamento colombiano</div></div>
+      <div class="glos-item"><div class="glos-key">municipali</div><div class="glos-val">Municipio</div></div>
+      <div class="glos-item"><div class="glos-key">watershedl</div><div class="glos-val">Cuenca hidrográfica</div></div>
+      <div class="glos-item"><div class="glos-key">regions</div><div class="glos-val">Región geográfica</div></div>
+      <div class="glos-item"><div class="glos-key">raisglimit</div><div class="glos-val">Límite RAISG — Red Amazónica</div></div>
+      <div class="glos-item"><div class="glos-key">indigenous</div><div class="glos-val">Territorios / resguardos indígenas</div></div>
+      <div class="glos-item"><div class="glos-key">forestres</div><div class="glos-val">Reservas forestales (Ley 2ª/1959)</div></div>
+      <div class="glos-item"><div class="glos-key">natinatupr</div><div class="glos-val">Áreas naturales protegidas (SINAP)</div></div>
+      <div class="glos-item"><div class="glos-key">areaha</div><div class="glos-val">Área en hectáreas</div></div>
+      <div class="glos-item"><div class="glos-key">anodetec</div><div class="glos-val">Año de detección</div></div>
+      <div class="glos-item"><div class="glos-key">datadetec</div><div class="glos-val">Fecha exacta de detección</div></div>
+      <div class="glos-item"><div class="glos-key">dtimgant</div><div class="glos-val">Fecha imagen satelital anterior</div></div>
+      <div class="glos-item"><div class="glos-key">dtimgdep</div><div class="glos-val">Fecha imagen que confirma cambio</div></div>
+      <div class="glos-item"><div class="glos-key">dtpubli</div><div class="glos-val">Fecha de publicación oficial</div></div>
+      <div class="glos-item"><div class="glos-key">vpressao</div><div class="glos-val">Vector de presión — causa de la deforestación</div></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Informe generado a partir de <strong>dashboard_alerts_shapefile</strong> &nbsp;·&nbsp; Filtro: Chocó / minería &nbsp;·&nbsp; 17 alertas · 82,92 ha &nbsp;·&nbsp; 2024–2025
+</footer>
+
+</body>
+</html>

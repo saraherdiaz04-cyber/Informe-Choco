@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informe Alertas Deforestación — Minería | Chocó | Con contexto 2024–2025</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green-900: #0d3b1e; --green-800: #1a6b3c; --green-700: #2e7d32;
+    --green-400: #66bb6a; --green-100: #e8f5e9; --green-50: #f1f8f2;
+    --amber-800: #854f0b; --amber-100: #faeeda;
+    --blue-800: #185fa5; --blue-100: #e6f1fb;
+    --purple-800: #512da8; --purple-100: #ede7f6;
+    --red-100: #fff8e1; --red-border: #ffc107; --red-text: #5d4037;
+    --gray-900: #1a1a1a; --gray-700: #333; --gray-500: #666;
+    --gray-300: #ccc; --gray-100: #f5f5f5; --gray-50: #fafafa;
+    --white: #fff; --shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; color: var(--gray-700); background: #eef0ee; line-height: 1.65; }
+
+  /* NAV */
+  nav { position: sticky; top: 0; z-index: 100; background: var(--green-900); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 52px; box-shadow: 0 2px 8px rgba(0,0,0,0.25); }
+  .nav-brand { color: #fff; font-size: 13px; font-weight: 500; letter-spacing: 0.04em; display: flex; align-items: center; gap: 10px; }
+  .nav-brand span { color: var(--green-400); }
+  .nav-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .nav-links a { color: rgba(255,255,255,0.65); font-size: 12px; text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--green-400); }
+
+  /* LAYOUT */
+  .page { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
+
+  /* HERO */
+  .hero { background: var(--green-900); border-radius: 14px; padding: 3rem 3rem 2.5rem; margin-bottom: 2rem; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 50%, rgba(102,187,106,0.1) 0%, transparent 70%); pointer-events: none; }
+  .hero-badges { display: flex; gap: 8px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; padding: 4px 12px; border-radius: 100px; }
+  .badge-green { background: rgba(102,187,106,0.2); color: var(--green-400); border: 1px solid rgba(102,187,106,0.3); }
+  .badge-amber { background: var(--amber-100); color: var(--amber-800); }
+  .hero h1 { font-size: 2rem; font-weight: 600; color: #fff; line-height: 1.2; margin-bottom: 0.5rem; }
+  .hero h1 em { color: var(--green-400); font-style: normal; }
+  .hero-sub { color: rgba(255,255,255,0.5); font-size: 13px; margin-bottom: 2rem; }
+  .hero-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: rgba(255,255,255,0.1); border-radius: 8px; overflow: hidden; }
+  .hero-metric { background: rgba(255,255,255,0.06); padding: 1rem 1.25rem; transition: background 0.2s; }
+  .hero-metric:hover { background: rgba(255,255,255,0.1); }
+  .hero-metric-label { font-size: 11px; color: rgba(255,255,255,0.5); letter-spacing: 0.05em; margin-bottom: 4px; }
+  .hero-metric-value { font-size: 1.45rem; font-weight: 600; color: #fff; line-height: 1; }
+  .hero-metric-sub { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 3px; }
+
+  /* SECTION TITLE */
+  .sec-title { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; color: var(--green-800); text-transform: uppercase; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--green-100); display: flex; align-items: center; gap: 8px; }
+
+  /* CARDS */
+  .card { background: var(--white); border-radius: 12px; box-shadow: var(--shadow); padding: 1.75rem 2rem; margin-bottom: 1.5rem; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+  @media(max-width:720px){ .two-col,.three-col { grid-template-columns: 1fr; } .nav-links { display: none; } }
+
+  /* BODY TEXT */
+  .body-text { font-size: 14px; color: var(--gray-700); line-height: 1.7; margin-bottom: 0.9rem; text-align: justify; }
+  .body-text b { color: var(--gray-900); }
+  .sub-title { font-size: 13px; font-weight: 600; color: var(--green-700); margin: 1.1rem 0 0.5rem; }
+
+  /* NEWS CARDS */
+  .news-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 0.75rem; }
+  .news-card { background: var(--green-50); border: 1px solid var(--green-100); border-left: 4px solid var(--green-700); border-radius: 0 8px 8px 0; padding: 0.75rem 1rem; }
+  .news-card-header { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 4px; flex-wrap: wrap; }
+  .news-source { font-size: 11px; font-weight: 600; color: var(--green-800); letter-spacing: 0.04em; }
+  .news-ref { font-size: 10px; font-family: 'IBM Plex Mono', monospace; background: var(--green-100); color: var(--green-800); padding: 1px 7px; border-radius: 100px; }
+  .news-date { font-size: 11px; color: var(--gray-500); font-style: italic; }
+  .news-body { font-size: 13px; color: var(--gray-700); line-height: 1.55; }
+
+  /* ALERT BOX */
+  .alert-box { background: var(--red-100); border-left: 4px solid var(--red-border); border-radius: 0 8px 8px 0; padding: 1rem 1.25rem; font-size: 13px; color: var(--red-text); margin-top: 1rem; line-height: 1.6; }
+
+  /* BARS */
+  .bar-list { display: flex; flex-direction: column; gap: 9px; }
+  .bar-item { display: flex; align-items: center; gap: 10px; }
+  .bar-name { font-size: 12px; color: var(--gray-500); width: 170px; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar-track { flex: 1; height: 10px; background: var(--gray-100); border-radius: 5px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 5px; transition: width 0.6s ease; }
+  .bar-val { font-size: 12px; font-weight: 600; min-width: 44px; text-align: right; font-family: 'IBM Plex Mono', monospace; }
+
+  /* YEAR CHART */
+  .year-chart { display: flex; gap: 1.5rem; align-items: flex-end; height: 110px; padding: 0 1rem; margin: 0.75rem 0; }
+  .year-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; height: 100%; justify-content: flex-end; }
+  .year-bar { width: 100%; border-radius: 6px 6px 0 0; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 6px; }
+  .year-bar span { font-size: 1.1rem; font-weight: 600; color: #fff; }
+  .year-label { font-size: 13px; color: var(--gray-500); }
+  .year-pct { font-size: 11px; color: var(--gray-300); }
+
+  /* RESERVAS */
+  .reserva-list { display: flex; flex-direction: column; }
+  .reserva-item { display: flex; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--gray-100); }
+  .reserva-item:last-child { border-bottom: none; }
+  .reserva-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .reserva-text { flex: 1; font-size: 13px; }
+  .reserva-count { font-size: 12px; font-weight: 600; font-family: 'IBM Plex Mono', monospace; color: var(--gray-500); white-space: nowrap; }
+
+  /* TABLE */
+  .table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--gray-100); }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  thead tr { background: var(--green-900); }
+  thead th { padding: 10px 12px; text-align: left; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; color: rgba(255,255,255,0.85); white-space: nowrap; }
+  tbody tr:nth-child(even) { background: var(--green-50); }
+  tbody tr:hover { background: var(--green-100); }
+  tbody td { padding: 9px 12px; border-bottom: 1px solid var(--gray-100); vertical-align: middle; }
+  tbody tr:last-child td { border-bottom: none; }
+  .mono { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; }
+  .tag { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 100px; font-weight: 500; white-space: nowrap; }
+  .tag-24 { background: var(--blue-100); color: var(--blue-800); }
+  .tag-25 { background: var(--green-100); color: var(--green-700); }
+  .tag-pac { background: var(--green-100); color: var(--green-800); }
+  .tag-and { background: var(--purple-100); color: var(--purple-800); }
+
+  /* FUENTES */
+  .fonte-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--gray-100); font-size: 13px; }
+  .fonte-row:last-child { border-bottom: none; }
+  .fonte-name { flex: 1; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--green-800); }
+  .fonte-bar { width: 80px; height: 6px; background: var(--gray-100); border-radius: 3px; overflow: hidden; }
+  .fonte-bar-fill { height: 100%; border-radius: 3px; }
+  .fonte-num { font-weight: 600; color: var(--gray-700); min-width: 20px; text-align: right; }
+
+  /* GLOSARIO */
+  .glosario-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+  .glos-item { background: var(--gray-50); border: 1px solid var(--gray-100); border-radius: 8px; padding: 10px 14px; }
+  .glos-key { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--green-800); font-weight: 500; }
+  .glos-val { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
+
+  /* BIBLIOGRAFÍA */
+  .bib-list { display: flex; flex-direction: column; gap: 0; }
+  .bib-item { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--gray-100); align-items: flex-start; }
+  .bib-item:last-child { border-bottom: none; }
+  .bib-num { font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; color: var(--green-800); min-width: 46px; flex-shrink: 0; padding-top: 2px; }
+  .bib-content { flex: 1; }
+  .bib-source { font-size: 13px; font-weight: 600; color: var(--gray-900); margin-bottom: 2px; }
+  .bib-title { font-size: 13px; color: var(--gray-700); margin-bottom: 3px; line-height: 1.5; }
+  .bib-date { font-size: 12px; color: var(--gray-500); font-style: italic; }
+  .bib-url { font-size: 11px; font-family: 'IBM Plex Mono', monospace; color: var(--green-700); word-break: break-all; margin-top: 3px; }
+  .bib-url a { color: inherit; text-decoration: none; }
+  .bib-url a:hover { text-decoration: underline; }
+
+  /* BULLETS */
+  .obs-list { display: flex; flex-direction: column; gap: 8px; margin-top: 0.5rem; }
+  .obs-item { display: flex; gap: 10px; align-items: flex-start; font-size: 13.5px; color: var(--gray-700); line-height: 1.6; }
+  .obs-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green-700); flex-shrink: 0; margin-top: 7px; }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: var(--gray-100); margin: 1.25rem 0; }
+
+  /* FOOTER */
+  footer { text-align: center; padding: 2rem 0 1rem; font-size: 12px; color: var(--gray-300); }
+  footer strong { color: var(--green-700); }
+
+  @media print {
+    nav { display: none; }
+    .card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">🌿 <span>Alerta Deforestación</span> — Chocó · Minería · 2024–2025</div>
+  <div class="nav-links">
+    <a href="#resumen">Resumen</a>
+    <a href="#contexto">Contexto</a>
+    <a href="#social">Impacto social</a>
+    <a href="#datos">Datos SIG</a>
+    <a href="#detalle">Alertas</a>
+    <a href="#obs">Observaciones</a>
+    <a href="#glosario">Glosario</a>
+    <a href="#bib">Bibliografía</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- ══════════ HERO ══════════ -->
+  <div class="hero" id="resumen">
+    <div class="hero-badges">
+      <span class="badge badge-green">🇨🇴 Chocó, Colombia</span>
+      <span class="badge badge-amber">⛏️ Vector: Minería</span>
+      <span class="badge badge-green">2024–2025</span>
+      <span class="badge badge-green">Contexto verificado</span>
+    </div>
+    <h1>Informe de alertas de<br><em>deforestación por minería</em></h1>
+    <p class="hero-sub">Fuente: dashboard_alerts_shapefile · Tabla de atributos original en portugués · Complementado con noticias e informes institucionales 2024–2025</p>
+    <div class="hero-metrics">
+      <div class="hero-metric"><div class="hero-metric-label">TOTAL ALERTAS</div><div class="hero-metric-value">17</div><div class="hero-metric-sub">Período 2024–2025</div></div>
+      <div class="hero-metric"><div class="hero-metric-label">ÁREA TOTAL</div><div class="hero-metric-value">82,92 ha</div><div class="hero-metric-sub">suma detectada</div></div>
+      <div class="hero-metric"><div class="hero-metric-label">ÁREA PROMEDIO</div><div class="hero-metric-value">4,88 ha</div><div class="hero-metric-sub">por alerta</div></div>
+      <div class="hero-metric"><div class="hero-metric-label">ÁREA MÁXIMA</div><div class="hero-metric-value">21,41 ha</div><div class="hero-metric-sub">Lloró · 40193667</div></div>
+      <div class="hero-metric"><div class="hero-metric-label">MUNICIPIOS</div><div class="hero-metric-value">10</div><div class="hero-metric-sub">con ≥ 1 alerta</div></div>
+      <div class="hero-metric"><div class="hero-metric-label">BIOMA PRINCIPAL</div><div class="hero-metric-value" style="font-size:.95rem;padding-top:4px;">Bh Trop.<br>Pacífico</div><div class="hero-metric-sub">94,1% de alertas</div></div>
+    </div>
+  </div>
+
+  <!-- ══════════ CONTEXTO AMBIENTAL ══════════ -->
+  <div class="card" id="contexto">
+    <div class="sec-title">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+      2. Contexto ambiental nacional (2024–2025)
+    </div>
+
+    <p class="sub-title">2.1. Deforestación en Colombia en 2024</p>
+    <p class="body-text">Según el reporte anual del IDEAM y el Ministerio de Ambiente, Colombia registró <b>113.608 hectáreas deforestadas en 2024</b>, un incremento del 43 % frente a 2023, aunque representa la segunda cifra más baja desde que se tiene registro. La Amazonía concentró la mayor pérdida, con más de 77.000 ha. Los principales motores señalados son la ganadería extensiva, los cultivos ilícitos, la minería ilegal y la expansión de infraestructura no planificada. Global Forest Watch estimó que la pérdida de bosques primarios aumentó casi un 50 % en 2024, vinculando el aumento a la inestabilidad del proceso de paz y la expansión de la minería ilegal. <b>[1][2][3]</b></p>
+
+    <div class="news-grid">
+      <div class="news-card">
+        <div class="news-card-header">
+          <span class="news-source">IDEAM / Ministerio de Ambiente — minambiente.gov.co</span>
+          <span class="news-ref">[1]</span>
+          <span class="news-date">31 jul 2025</span>
+        </div>
+        <p class="news-body">Colombia consolidó en 2024 la segunda cifra más baja de deforestación histórica: 113.608 ha. El gobierno destacó tres años consecutivos de reducción acumulada respecto a 2021. Sin embargo, la Amazonía mostró un incremento del 74 % en pérdida forestal, concentrado en el Arco Amazónico.</p>
+      </div>
+      <div class="news-card">
+        <div class="news-card-header">
+          <span class="news-source">Mongabay Latam — es.mongabay.com</span>
+          <span class="news-ref">[2]</span>
+          <span class="news-date">18 ago 2025</span>
+        </div>
+        <p class="news-body">Global Forest Watch estimó un aumento del 50 % en pérdida de bosques primarios en 2024. La deforestación en Parques Nacionales más que duplicó los niveles de 2023. Se registraron incrementos en resguardos indígenas y territorios afrodescendientes. El informe oficial omite la conexión con grupos armados.</p>
+      </div>
+      <div class="news-card">
+        <div class="news-card-header">
+          <span class="news-source">WWF Colombia — wwf.org.co</span>
+          <span class="news-ref">[3]</span>
+          <span class="news-date">2025</span>
+        </div>
+        <p class="news-body">Pese al incremento del 43 % frente a 2023, persiste una tendencia de reducción acumulada en tres años. La deforestación en el Sistema Nacional de Áreas Protegidas alcanzó 10.127 ha en 2024, de las cuales 6.861 corresponden a Parques Nacionales Naturales.</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <p class="sub-title">2.2. Minería ilegal como motor de deforestación en el Chocó</p>
+    <p class="body-text">El Chocó es uno de los departamentos más afectados por la minería ilegal en Colombia. Según el <b>Informe Nacional sobre Minería Ilegal y Contaminación por Mercurio</b> de la Procuraduría General de la Nación (diciembre 2024), en los últimos diez años la minería ilegal ha sido reportada en 29 de los 32 departamentos, siendo Chocó uno de los más críticos. La UNODC señaló que la minería de oro de aluvión afecta más de <b>94.000 hectáreas</b> en Colombia, siendo la explotación ilícita responsable del 73 % de esa actividad. <b>[4][5]</b></p>
+
+    <div class="news-grid">
+      <div class="news-card">
+        <div class="news-card-header">
+          <span class="news-source">Procuraduría General de la Nación — procuraduria.gov.co</span>
+          <span class="news-ref">[4]</span>
+          <span class="news-date">13 dic 2024</span>
+        </div>
+        <p class="news-body">Informe Nacional sobre Minería Ilegal y Contaminación por Mercurio. Chocó figura entre los departamentos más críticos. La extracción ilícita provoca desplazamientos forzados, violencia, explotación laboral y graves riesgos para la salud de comunidades ribereñas, especialmente niños y mujeres embarazadas. Más del 50 % de los municipios colombianos han sufrido los estragos de esta actividad.</p>
+      </div>
+      <div class="news-card">
+        <div class="news-card-header">
+          <span class="news-source">Infobae Colombia — infobae.com</span>
+          <span class="news-ref">[5]</span>
+          <span class="news-date">10 oct 2024</span>
+        </div>
+        <p class="news-body">Colombia e EE.UU. fortalecieron estrategias bilaterales para combatir la minería ilegal. La Procuraduría señaló que esta actividad "financia a los grupos criminales y causa un daño irreparable al entorno". Se presentó un informe de contaminación por mercurio en Chocó y el Bajo Cauca ante autoridades en Washington.</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <p class="sub-title">2.3. Respuesta institucional del Estado colombiano</p>
+    <p class="body-text">En 2024 y 2025, el Consejo Nacional de Lucha contra la Deforestación (CONALDEF) desplegó operaciones preventivas e investigativas. Entre los logros: declaración de Los Farallones de Cali como zona libre de minería, desarticulación de redes de tala ilegal y operaciones en el Parque Chiribiquete. En junio de 2025, la ministra Lena Estrada identificó al Chocó como zona clave de intervención. <b>[6][7]</b></p>
+
+    <div class="news-grid">
+      <div class="news-card">
+        <div class="news-card-header">
+          <span class="news-source">Ministerio de Ambiente — minambiente.gov.co</span>
+          <span class="news-ref">[6]</span>
+          <span class="news-date">17 dic 2024</span>
+        </div>
+        <p class="news-body">El CONALDEF reportó: incautación de 28.618 unidades de fauna y 331.033 de flora. Captura de cabecillas de estructuras de criminalidad ambiental. Superación en 102 % del indicador de Protección Ambiental de la Policía Nacional. Plan de Recuperación Ambiental en Los Farallones continuará hasta 2025.</p>
+      </div>
+      <div class="news-card">
+        <div class="news-card-header">
+          <span class="news-source">Ministerio de Ambiente — minambiente.gov.co</span>
+          <span class="news-ref">[7]</span>
+          <span class="news-date">19 jun 2025</span>
+        </div>
+        <p class="news-body">Sesión 19° del CONALDEF. La ministra Estrada trazó la ruta de intervención 2025 con foco en Chocó, Antioquia, Bolívar, Cauca y Valle del Cauca. Se anunciaron tres sesiones adicionales para monitorear y actuar sobre delitos ambientales con captura de cabecillas de redes criminales.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ IMPACTO SOCIAL ══════════ -->
+  <div class="card" id="social">
+    <div class="sec-title">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      3. Impacto social y en derechos humanos
+    </div>
+
+    <p class="sub-title">3.1. Contaminación por mercurio en la cuenca del Atrato</p>
+    <p class="body-text">La cuenca del río Atrato, que atraviesa varios de los municipios con alertas de minería en este informe (Istmina, Medio Atrato, Rio Quito, Condoto), enfrenta una grave crisis de contaminación por mercurio. En septiembre de 2024, un campamento de minería ilegal fue documentado sobre el río Quito, afluente del Atrato, cerca de Paimado. La ONU advirtió en 2025 que <b>más de un tercio de la población de la cuenca del Atrato</b> ha estado expuesta a niveles de mercurio superiores a los límites de la OMS, calificando la situación como una <b>"grave y continua crisis de derechos humanos"</b>. <b>[8][9]</b></p>
+    <p class="body-text">Investigaciones científicas revelaron que el 44 % de las muestras del río Atrato contienen niveles moderados a altos de mercurio. En la cuenca del Apaporis, el 85,5 % de las personas analizadas tenían 60 % de probabilidad de desarrollar enfermedades neurológicas. Pese al fallo de 2016 de la Corte Constitucional que reconoció al río Atrato como sujeto de derechos, las órdenes de descontaminación siguen sin cumplirse. <b>[9][10]</b></p>
+
+    <div class="news-grid">
+      <div class="news-card">
+        <div class="news-card-header">
+          <span class="news-source">Proceso / Associated Press — proceso.com.mx</span>
+          <span class="news-ref">[8]</span>
+          <span class="news-date">oct 2025</span>
+        </div>
+        <p class="news-body">Tres relatores especiales del Consejo de Derechos Humanos de la ONU alertaron que la contaminación por mercurio en el Atrato viola el derecho a la salud, a la vida y a un ambiente limpio. Instaron a Colombia a tomar medidas "inmediatas y efectivas" para frenar la minería ilegal, limpiar sitios contaminados y brindar atención médica a comunidades afectadas.</p>
+      </div>
+      <div class="news-card">
+        <div class="news-card-header">
+          <span class="news-source">Mongabay Latam — es.mongabay.com</span>
+          <span class="news-ref">[9]</span>
+          <span class="news-date">jun 2025</span>
+        </div>
+        <p class="news-body">El toxicólogo Jesús Olivero-Verbel (Premio Academia Colombiana de Ciencias 2024) advirtió: "El Chocó tiene en estos momentos un número grandísimo de dragones trabajando 24 horas y destruyendo la selva". El mercurio es vertido directamente a los ríos contaminando agua, sedimentos, peces y personas. "Atrateño sin mercurio en el cuerpo no hay".</p>
+      </div>
+    </div>
+
+    <div class="alert-box">
+      ⚠️ <strong>Crisis humanitaria en el Atrato:</strong> Pese al fallo de la Corte Constitucional de 2016 que reconoció al río Atrato como sujeto de derechos y ordenó su protección, las comunidades ribereñas siguen expuestas al mercurio. La ONU advirtió en 2025 que el Estado colombiano no ha cumplido con las órdenes de descontaminación, configurando una violación continua de los derechos humanos de comunidades afrocolombianas e indígenas.
+    </div>
+
+    <div class="divider"></div>
+    <p class="sub-title">3.2. Comunidades afrocolombianas e indígenas afectadas</p>
+    <p class="body-text">Los municipios con mayor número de alertas (Condoto, Istmina, Nóvita, Rio Quito) corresponden a territorios históricamente habitados por comunidades afrocolombianas organizadas en Consejos Comunitarios y por pueblos indígenas Embera. La minería artesanal de oro ha sido practicada ancestralmente en las cuencas del San Juan y el Atrato, pero la llegada de maquinaria pesada ilegal —retroexcavadoras y dragas operando 24 horas— ha transformado una práctica tradicional en devastación territorial, generando desplazamientos forzados, violencia y ruptura del tejido social. <b>[4][11]</b></p>
+
+    <div class="news-grid">
+      <div class="news-card">
+        <div class="news-card-header">
+          <span class="news-source">Corresponsables Colombia — corresponsables.com</span>
+          <span class="news-ref">[11]</span>
+          <span class="news-date">ene 2024</span>
+        </div>
+        <p class="news-body">La minería artesanal de oro en las cuencas del San Juan y el Atrato (Chocó y Antioquia) ha sido ejercida por generaciones de familias indígenas y afrocolombianas como principal fuente de ingreso. La minería ilegal impulsada por grupos armados ha generado un "serio impacto social, económico y ambiental" sobre esas mismas comunidades.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ DATOS SIG ══════════ -->
+  <div id="datos">
+    <div class="two-col">
+      <div class="card">
+        <div class="sec-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          4a. Alertas por municipio
+        </div>
+        <div class="bar-list">
+          <div class="bar-item"><span class="bar-name">Condoto</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:#1A6B3C;"></div></div><span class="bar-val" style="color:#1A6B3C;">3</span></div>
+          <div class="bar-item"><span class="bar-name">Valledupar *</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:#1A6B3C;"></div></div><span class="bar-val" style="color:#1A6B3C;">3</span></div>
+          <div class="bar-item"><span class="bar-name">Istmina</span><div class="bar-track"><div class="bar-fill" style="width:66%;background:#388E3C;"></div></div><span class="bar-val" style="color:#388E3C;">2</span></div>
+          <div class="bar-item"><span class="bar-name">Rio Quito</span><div class="bar-track"><div class="bar-fill" style="width:66%;background:#388E3C;"></div></div><span class="bar-val" style="color:#388E3C;">2</span></div>
+          <div class="bar-item"><span class="bar-name">Nóvita</span><div class="bar-track"><div class="bar-fill" style="width:66%;background:#388E3C;"></div></div><span class="bar-val" style="color:#388E3C;">2</span></div>
+          <div class="bar-item"><span class="bar-name">Lloró</span><div class="bar-track"><div class="bar-fill" style="width:33%;background:#81C784;"></div></div><span class="bar-val" style="color:#81C784;">1</span></div>
+          <div class="bar-item"><span class="bar-name">Cantón del San Pablo</span><div class="bar-track"><div class="bar-fill" style="width:33%;background:#81C784;"></div></div><span class="bar-val" style="color:#81C784;">1</span></div>
+          <div class="bar-item"><span class="bar-name">Cértegui</span><div class="bar-track"><div class="bar-fill" style="width:33%;background:#81C784;"></div></div><span class="bar-val" style="color:#81C784;">1</span></div>
+          <div class="bar-item"><span class="bar-name">Unión Panamericana</span><div class="bar-track"><div class="bar-fill" style="width:33%;background:#81C784;"></div></div><span class="bar-val" style="color:#81C784;">1</span></div>
+          <div class="bar-item"><span class="bar-name">Medio Atrato</span><div class="bar-track"><div class="bar-fill" style="width:33%;background:#81C784;"></div></div><span class="bar-val" style="color:#81C784;">1</span></div>
+        </div>
+        <div class="divider"></div>
+        <p style="font-size:12px;color:var(--gray-500);font-style:italic;">* Valledupar aparece asignado al Chocó en los datos fuente — posible error de atribución geográfica.</p>
+      </div>
+
+      <div class="card">
+        <div class="sec-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          4b. Distribución temporal
+        </div>
+        <div class="year-chart">
+          <div class="year-bar-wrap">
+            <div class="year-bar" style="height:75%;background:#185FA5;"><span>8</span></div>
+            <div class="year-label">2024</div><div class="year-pct">47,1%</div>
+          </div>
+          <div class="year-bar-wrap">
+            <div class="year-bar" style="height:90%;background:#1A6B3C;"><span>9</span></div>
+            <div class="year-label">2025</div><div class="year-pct">52,9%</div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="sec-title" style="margin-top:0.5rem;">4c. Fuentes de detección</div>
+        <div>
+          <div class="fonte-row"><span class="fonte-name">IDEAM</span><div class="fonte-bar"><div class="fonte-bar-fill" style="width:100%;background:#7C3AED;"></div></div><span class="fonte-num">7</span></div>
+          <div class="fonte-row"><span class="fonte-name">GLAD-S</span><div class="fonte-bar"><div class="fonte-bar-fill" style="width:43%;background:#7C3AED;"></div></div><span class="fonte-num">3</span></div>
+          <div class="fonte-row"><span class="fonte-name">GLAD-S + IDEAM</span><div class="fonte-bar"><div class="fonte-bar-fill" style="width:29%;background:#9F67E0;"></div></div><span class="fonte-num">2</span></div>
+          <div class="fonte-row"><span class="fonte-name">RADD</span><div class="fonte-bar"><div class="fonte-bar-fill" style="width:29%;background:#9F67E0;"></div></div><span class="fonte-num">2</span></div>
+          <div class="fonte-row"><span class="fonte-name">LUCA</span><div class="fonte-bar"><div class="fonte-bar-fill" style="width:14%;background:#C4A9F0;"></div></div><span class="fonte-num">1</span></div>
+          <div class="fonte-row"><span class="fonte-name">GLAD-S+IDEAM+LUCA</span><div class="fonte-bar"><div class="fonte-bar-fill" style="width:14%;background:#C4A9F0;"></div></div><span class="fonte-num">1</span></div>
+          <div class="fonte-row"><span class="fonte-name">GLAD-L + IDEAM</span><div class="fonte-bar"><div class="fonte-bar-fill" style="width:14%;background:#C4A9F0;"></div></div><span class="fonte-num">1</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <div class="sec-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>
+          4d. Área afectada por municipio (ha)
+        </div>
+        <div class="bar-list">
+          <div class="bar-item"><span class="bar-name">Condoto</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:#F59E0B;"></div></div><span class="bar-val" style="color:#92400E;">22,71</span></div>
+          <div class="bar-item"><span class="bar-name">Lloró</span><div class="bar-track"><div class="bar-fill" style="width:94%;background:#F59E0B;"></div></div><span class="bar-val" style="color:#92400E;">21,41</span></div>
+          <div class="bar-item"><span class="bar-name">Valledupar *</span><div class="bar-track"><div class="bar-fill" style="width:60%;background:#FCD34D;"></div></div><span class="bar-val" style="color:#92400E;">13,70</span></div>
+          <div class="bar-item"><span class="bar-name">Cantón del San Pablo</span><div class="bar-track"><div class="bar-fill" style="width:29%;background:#FDE68A;"></div></div><span class="bar-val" style="color:#92400E;">6,55</span></div>
+          <div class="bar-item"><span class="bar-name">Nóvita</span><div class="bar-track"><div class="bar-fill" style="width:22%;background:#FDE68A;"></div></div><span class="bar-val" style="color:#92400E;">5,02</span></div>
+          <div class="bar-item"><span class="bar-name">Cértegui</span><div class="bar-track"><div class="bar-fill" style="width:15%;background:#FDE68A;"></div></div><span class="bar-val" style="color:#92400E;">3,43</span></div>
+          <div class="bar-item"><span class="bar-name">Istmina</span><div class="bar-track"><div class="bar-fill" style="width:14%;background:#FDE68A;"></div></div><span class="bar-val" style="color:#92400E;">3,27</span></div>
+          <div class="bar-item"><span class="bar-name">Unión Panamericana</span><div class="bar-track"><div class="bar-fill" style="width:12%;background:#FEF3C7;"></div></div><span class="bar-val" style="color:#92400E;">2,63</span></div>
+          <div class="bar-item"><span class="bar-name">Rio Quito</span><div class="bar-track"><div class="bar-fill" style="width:11%;background:#FEF3C7;"></div></div><span class="bar-val" style="color:#92400E;">2,44</span></div>
+          <div class="bar-item"><span class="bar-name">Medio Atrato</span><div class="bar-track"><div class="bar-fill" style="width:8%;background:#FEF3C7;"></div></div><span class="bar-val" style="color:#92400E;">1,76</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="sec-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/></svg>
+          4e. Bioma y reservas forestales (Ley 2ª/1959)
+        </div>
+        <div style="font-size:12px;color:var(--gray-500);margin-bottom:8px;">Bioma</div>
+        <div class="bar-list" style="margin-bottom:1rem;">
+          <div class="bar-item"><span class="bar-name">Bh Trop. Pacífico</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:#1A6B3C;"></div></div><span class="bar-val" style="color:#1A6B3C;">16</span></div>
+          <div class="bar-item"><span class="bar-name">Andes</span><div class="bar-track"><div class="bar-fill" style="width:6%;background:#7C3AED;"></div></div><span class="bar-val" style="color:#7C3AED;">1</span></div>
+        </div>
+        <div class="divider"></div>
+        <div style="font-size:12px;color:var(--gray-500);margin-bottom:8px;">Reservas forestales</div>
+        <div class="reserva-list">
+          <div class="reserva-item"><div class="reserva-dot" style="background:#1A6B3C;"></div><div class="reserva-text">Pacífico – Áreas con Previa Decisión de Ordenamiento</div><div class="reserva-count">12 · 70,6%</div></div>
+          <div class="reserva-item"><div class="reserva-dot" style="background:#F59E0B;"></div><div class="reserva-text">Reserva Forestal en Sustracción Definitiva</div><div class="reserva-count">3 · 17,6%</div></div>
+          <div class="reserva-item"><div class="reserva-dot" style="background:#7C3AED;"></div><div class="reserva-text">Pacífico – Tipo A</div><div class="reserva-count">1 · 5,9%</div></div>
+          <div class="reserva-item"><div class="reserva-dot" style="background:#EF4444;"></div><div class="reserva-text">Pacífico – Tipo A + Áreas con Previa Decisión</div><div class="reserva-count">1 · 5,9%</div></div>
+        </div>
+        <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--gray-100);font-size:12px;color:var(--gray-500);">
+          Ninguna alerta se superpone con territorios indígenas según el campo <span style="font-family:monospace;color:var(--green-800);">indigenous</span> del shapefile.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ TABLA DETALLE ══════════ -->
+  <div class="card" id="detalle">
+    <div class="sec-title">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      5. Detalle completo de las 17 alertas
+    </div>
+    <p class="body-text">El código <b>40193667 (Lloró, 21,41 ha)</b> fue confirmado por tres fuentes satelitales independientes (GLAD-S, IDEAM y LUCA), otorgándole la mayor confiabilidad del conjunto. Las fechas corresponden a la detección en imágenes y a la publicación oficial de la alerta.</p>
+    <div class="table-wrap" style="margin-top:1rem;">
+      <table>
+        <thead><tr>
+          <th>Código</th><th>Municipio</th><th>Área (ha)</th><th>Año</th>
+          <th>Fecha detección</th><th>Fuente</th><th>Bioma</th><th>Publicación</th>
+        </tr></thead>
+        <tbody>
+          <tr><td class="mono">40052147</td><td>Istmina</td><td class="mono">1,25</td><td><span class="tag tag-24">2024</span></td><td class="mono">2024-03-31</td><td class="mono" style="font-size:11px;">IDEAM</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2025-12-01</td></tr>
+          <tr><td class="mono">40055469</td><td>Valledupar *</td><td class="mono">2,67</td><td><span class="tag tag-24">2024</span></td><td class="mono">2024-06-30</td><td class="mono" style="font-size:11px;">IDEAM</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2025-11-19</td></tr>
+          <tr><td class="mono">40056544</td><td>Valledupar *</td><td class="mono">6,63</td><td><span class="tag tag-24">2024</span></td><td class="mono">2024-09-30</td><td class="mono" style="font-size:11px;">IDEAM</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2025-12-06</td></tr>
+          <tr><td class="mono">40056568</td><td>Rio Quito</td><td class="mono">1,70</td><td><span class="tag tag-24">2024</span></td><td class="mono">2024-09-30</td><td class="mono" style="font-size:11px;">GLAD-S + IDEAM</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2025-12-06</td></tr>
+          <tr><td class="mono">40057837</td><td>Rio Quito</td><td class="mono">0,74</td><td><span class="tag tag-24">2024</span></td><td class="mono">2024-12-31</td><td class="mono" style="font-size:11px;">IDEAM</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2025-11-21</td></tr>
+          <tr><td class="mono">40057848</td><td>Nóvita</td><td class="mono">4,21</td><td><span class="tag tag-24">2024</span></td><td class="mono">2024-12-31</td><td class="mono" style="font-size:11px;">IDEAM</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2025-11-21</td></tr>
+          <tr><td class="mono">40060609</td><td>Condoto</td><td class="mono">14,04</td><td><span class="tag tag-25">2025</span></td><td class="mono">2025-03-31</td><td class="mono" style="font-size:11px;">IDEAM</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2025-11-21</td></tr>
+          <tr><td class="mono">40156080</td><td>Medio Atrato</td><td class="mono">1,76</td><td><span class="tag tag-24">2024</span></td><td class="mono">2024-11-30</td><td class="mono" style="font-size:11px;">RADD</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2025-12-06</td></tr>
+          <tr><td class="mono">40156085</td><td>Valledupar *</td><td class="mono">4,40</td><td><span class="tag tag-24">2024</span></td><td class="mono">2024-11-30</td><td class="mono" style="font-size:11px;">RADD</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2025-12-06</td></tr>
+          <tr><td class="mono">40184869</td><td>Condoto</td><td class="mono">6,61</td><td><span class="tag tag-25">2025</span></td><td class="mono">2025-03-31</td><td class="mono" style="font-size:11px;">LUCA</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2026-03-02</td></tr>
+          <tr><td class="mono">40193667</td><td>Lloró</td><td class="mono" style="font-weight:700;color:#1A6B3C;">21,41</td><td><span class="tag tag-25">2025</span></td><td class="mono">2025-04-30</td><td class="mono" style="font-size:11px;">GLAD-S+IDEAM+LUCA</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2026-02-23</td></tr>
+          <tr><td class="mono">40218772</td><td>Cantón del San Pablo</td><td class="mono">6,55</td><td><span class="tag tag-25">2025</span></td><td class="mono">2025-05-31</td><td class="mono" style="font-size:11px;">GLAD-S</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2026-04-14</td></tr>
+          <tr><td class="mono">40221567</td><td>Cértegui</td><td class="mono">3,43</td><td><span class="tag tag-25">2025</span></td><td class="mono">2025-11-27</td><td class="mono" style="font-size:11px;">GLAD-S</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2026-04-14</td></tr>
+          <tr><td class="mono">40222364</td><td>Condoto</td><td class="mono">2,06</td><td><span class="tag tag-25">2025</span></td><td class="mono">2025-06-30</td><td class="mono" style="font-size:11px;">GLAD-S</td><td><span class="tag tag-and">Andes</span></td><td class="mono">2026-04-24</td></tr>
+          <tr><td class="mono">40227340</td><td>Unión Panamericana</td><td class="mono">2,63</td><td><span class="tag tag-25">2025</span></td><td class="mono">2025-06-30</td><td class="mono" style="font-size:11px;">IDEAM</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2026-04-24</td></tr>
+          <tr><td class="mono">40230329</td><td>Nóvita</td><td class="mono">0,81</td><td><span class="tag tag-25">2025</span></td><td class="mono">2025-03-31</td><td class="mono" style="font-size:11px;">GLAD-S + IDEAM</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2026-04-24</td></tr>
+          <tr><td class="mono">40231728</td><td>Istmina</td><td class="mono">2,02</td><td><span class="tag tag-25">2025</span></td><td class="mono">2025-03-31</td><td class="mono" style="font-size:11px;">GLAD-L + IDEAM</td><td><span class="tag tag-pac">Bh Trop. Pacífico</span></td><td class="mono">2026-04-24</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="alert-box" style="margin-top:1rem;">
+      ⚠️ <strong>Nota:</strong> El municipio <em>Valledupar</em> aparece asignado al departamento del Chocó en los datos fuente (3 registros). Dado que Valledupar pertenece al departamento del Cesar, se recomienda verificar y corregir estas geometrías en el shapefile original antes de cualquier uso oficial.
+    </div>
+  </div>
+
+  <!-- ══════════ OBSERVACIONES ══════════ -->
+  <div class="card" id="obs">
+    <div class="sec-title">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      6. Observaciones y recomendaciones
+    </div>
+    <div class="obs-list">
+      <div class="obs-item"><div class="obs-dot"></div><span><b>Condoto</b> acumula la mayor área total afectada (22,71 ha en 3 alertas), con actividad minera detectada en 2024 y 2025. Se ubica en la cuenca del río San Juan, históricamente afectada por minería de oro y platino con presencia de maquinaria pesada ilegal.</span></div>
+      <div class="obs-item"><div class="obs-dot"></div><span>La alerta de mayor superficie (<b>Lloró, 21,41 ha</b>, código 40193667) fue confirmada por tres fuentes satelitales simultáneas (GLAD-S, IDEAM y LUCA). Su ubicación en el bioma Bh Trop. Pacífico implica pérdida de hábitat de especies endémicas de alto valor de conservación.</span></div>
+      <div class="obs-item"><div class="obs-dot"></div><span>El incremento de alertas de 2024 (8) a 2025 (9) es consistente con el contexto nacional: Global Forest Watch estimó un aumento del 50 % en pérdida de bosques primarios en Colombia durante 2024, vinculado a la inestabilidad del proceso de paz y la expansión de la minería ilegal.</span></div>
+      <div class="obs-item"><div class="obs-dot"></div><span>El <b>70,6 % de las alertas</b> se ubica en Áreas con Previa Decisión de Ordenamiento (Reserva Forestal del Pacífico, Ley 2ª/1959), lo que indica que la actividad minera está ocurriendo en zonas reguladas que requieren intervención prioritaria de Codechocó y el Ministerio de Ambiente.</span></div>
+      <div class="obs-item"><div class="obs-dot"></div><span>La contaminación por mercurio en ríos como el <b>Atrato, Quito y San Juan</b> —que atraviesan municipios con alertas activas— constituye una amenaza directa a la salud de comunidades afrocolombianas e indígenas Embera, según alertas de la ONU (2025) y la Procuraduría (dic. 2024).</span></div>
+      <div class="obs-item"><div class="obs-dot"></div><span>Ninguna alerta se superpone con territorios indígenas según el campo <code>indigenous</code> del shapefile. Sin embargo, dada la densidad de resguardos en el Chocó, se recomienda validar con capas actualizadas de la Agencia Nacional de Tierras (ANT).</span></div>
+      <div class="obs-item"><div class="obs-dot"></div><span>El municipio <b>Valledupar</b> aparece en 3 registros asignados al Chocó en los datos fuente. Se recomienda verificar y corregir estas geometrías en el shapefile original antes de cualquier uso oficial o publicación.</span></div>
+    </div>
+  </div>
+
+  <!-- ══════════ GLOSARIO ══════════ -->
+  <div class="card" id="glosario">
+    <div class="sec-title">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      7. Glosario — tabla de atributos (portugués → español)
+    </div>
+    <div class="glosario-grid">
+      <div class="glos-item"><div class="glos-key">codealerta</div><div class="glos-val">Código de alerta — identificador único</div></div>
+      <div class="glos-item"><div class="glos-key">fonte</div><div class="glos-val">Fuente — sistema satelital de detección</div></div>
+      <div class="glos-item"><div class="glos-key">biome</div><div class="glos-val">Bioma — tipo de ecosistema</div></div>
+      <div class="glos-item"><div class="glos-key">department</div><div class="glos-val">Departamento colombiano</div></div>
+      <div class="glos-item"><div class="glos-key">municipali</div><div class="glos-val">Municipio</div></div>
+      <div class="glos-item"><div class="glos-key">watershedl</div><div class="glos-val">Cuenca hidrográfica</div></div>
+      <div class="glos-item"><div class="glos-key">regions</div><div class="glos-val">Región geográfica</div></div>
+      <div class="glos-item"><div class="glos-key">raisglimit</div><div class="glos-val">Límite RAISG — Red Amazónica</div></div>
+      <div class="glos-item"><div class="glos-key">indigenous</div><div class="glos-val">Territorios / resguardos indígenas</div></div>
+      <div class="glos-item"><div class="glos-key">forestres</div><div class="glos-val">Reservas forestales (Ley 2ª/1959)</div></div>
+      <div class="glos-item"><div class="glos-key">natinatupr</div><div class="glos-val">Áreas naturales protegidas (SINAP)</div></div>
+      <div class="glos-item"><div class="glos-key">areaha</div><div class="glos-val">Área en hectáreas</div></div>
+      <div class="glos-item"><div class="glos-key">anodetec</div><div class="glos-val">Año de detección</div></div>
+      <div class="glos-item"><div class="glos-key">datadetec</div><div class="glos-val">Fecha exacta de detección</div></div>
+      <div class="glos-item"><div class="glos-key">dtimgant</div><div class="glos-val">Fecha imagen satelital anterior</div></div>
+      <div class="glos-item"><div class="glos-key">dtimgdep</div><div class="glos-val">Fecha imagen que confirma el cambio</div></div>
+      <div class="glos-item"><div class="glos-key">dtpubli</div><div class="glos-val">Fecha de publicación oficial</div></div>
+      <div class="glos-item"><div class="glos-key">vpressao</div><div class="glos-val">Vector de presión — causa de la deforestación</div></div>
+    </div>
+  </div>
+
+  <!-- ══════════ BIBLIOGRAFÍA ══════════ -->
+  <div class="card" id="bib">
+    <div class="sec-title">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      8. Bibliografía y fuentes consultadas
+    </div>
+    <p class="body-text" style="margin-bottom:1rem;">Fuentes institucionales, periodísticas y científicas verificadas consultadas para enriquecer el contexto ambiental y social del informe. Todas corresponden a publicaciones de 2024–2025.</p>
+    <div class="bib-list">
+
+      <div class="bib-item">
+        <div class="bib-num">[1]</div>
+        <div class="bib-content">
+          <div class="bib-source">IDEAM / Ministerio de Ambiente y Desarrollo Sostenible de Colombia</div>
+          <div class="bib-title">En 2024, Colombia consolidó la segunda cifra de deforestación más baja en de la historia.</div>
+          <div class="bib-date">Bogotá, 31 jul 2025.</div>
+          <div class="bib-url"><a href="https://www.ideam.gov.co/sala-de-prensa/noticia/en-2024-colombia-consolido-la-segunda-cifra-de-deforestacion-mas-baja-en-de-la-historia" target="_blank">ideam.gov.co · sala-de-prensa</a></div>
+        </div>
+      </div>
+
+      <div class="bib-item">
+        <div class="bib-num">[2]</div>
+        <div class="bib-content">
+          <div class="bib-source">Mongabay Latam</div>
+          <div class="bib-title">Colombia: los grupos armados son los grandes ausentes en el reporte oficial de deforestación.</div>
+          <div class="bib-date">18 ago 2025.</div>
+          <div class="bib-url"><a href="https://es.mongabay.com/2025/08/deforestacion-colombia-2024-parques-conflicto-armado/" target="_blank">es.mongabay.com</a></div>
+        </div>
+      </div>
+
+      <div class="bib-item">
+        <div class="bib-num">[3]</div>
+        <div class="bib-content">
+          <div class="bib-source">WWF Colombia</div>
+          <div class="bib-title">Deforestación en Colombia registró un aumento en el 2024. Cifras IDEAM / Ministerio de Ambiente.</div>
+          <div class="bib-date">2025.</div>
+          <div class="bib-url"><a href="https://www.wwf.org.co/?396610/deforestacion-Colombia-2024-cifras-informe-ideam=" target="_blank">wwf.org.co</a></div>
+        </div>
+      </div>
+
+      <div class="bib-item">
+        <div class="bib-num">[4]</div>
+        <div class="bib-content">
+          <div class="bib-source">Procuraduría General de la Nación de Colombia</div>
+          <div class="bib-title">Minería ilegal afecta a 29 de los 32 departamentos de Colombia. Informe Nacional sobre Minería Ilegal y Contaminación por Mercurio en Colombia.</div>
+          <div class="bib-date">Bogotá, 13 dic 2024.</div>
+          <div class="bib-url"><a href="https://www.procuraduria.gov.co/Pages/mineria-ilegal-afecta-29-departamentos-colombia-informe-procuraduria.aspx" target="_blank">procuraduria.gov.co</a></div>
+        </div>
+      </div>
+
+      <div class="bib-item">
+        <div class="bib-num">[5]</div>
+        <div class="bib-content">
+          <div class="bib-source">Infobae Colombia</div>
+          <div class="bib-title">Contaminación por mercurio y minería ilegal: Colombia intensifica su lucha con apoyo de EE. UU.</div>
+          <div class="bib-date">10 oct 2024.</div>
+          <div class="bib-url"><a href="https://www.infobae.com/colombia/2024/10/10/contaminacion-por-mercurio-y-mineria-ilegal-colombia-intensifica-su-lucha-con-apoyo-de-ee-uu/" target="_blank">infobae.com/colombia</a></div>
+        </div>
+      </div>
+
+      <div class="bib-item">
+        <div class="bib-num">[6]</div>
+        <div class="bib-content">
+          <div class="bib-source">Ministerio de Ambiente y Desarrollo Sostenible de Colombia</div>
+          <div class="bib-title">Gobierno desarticula grandes estructuras criminales de minería ilegal y deforestación — Resultados CONALDEF 2024.</div>
+          <div class="bib-date">Bogotá, 17 dic 2024.</div>
+          <div class="bib-url"><a href="https://www.minambiente.gov.co/gobierno-desarticula-grandes-estructurales-criminales-de-mineria-ilegal-y-deforestacion/" target="_blank">minambiente.gov.co</a></div>
+        </div>
+      </div>
+
+      <div class="bib-item">
+        <div class="bib-num">[7]</div>
+        <div class="bib-content">
+          <div class="bib-source">Ministerio de Ambiente y Desarrollo Sostenible de Colombia</div>
+          <div class="bib-title">Colombia refuerza lucha contra la deforestación y minería ilegal — Sesión 19° CONALDEF. Chocó identificado como zona clave de intervención 2025.</div>
+          <div class="bib-date">Bogotá, 19 jun 2025.</div>
+          <div class="bib-url"><a href="https://www.minambiente.gov.co/colombia-refuerza-lucha-contra-la-deforestacion-y-mineria-ilegal-con-acciones-interinstitucionales/" target="_blank">minambiente.gov.co</a></div>
+        </div>
+      </div>
+
+      <div class="bib-item">
+        <div class="bib-num">[8]</div>
+        <div class="bib-content">
+          <div class="bib-source">Proceso / Associated Press</div>
+          <div class="bib-title">ONU advierte a Colombia de la contaminación por mercurio que deja la minería ilegal de oro. Tres relatores especiales del Consejo de Derechos Humanos de la ONU califican la situación como "grave y continua crisis de derechos humanos".</div>
+          <div class="bib-date">15 oct 2025.</div>
+          <div class="bib-url"><a href="https://www.proceso.com.mx/internacional/2025/10/15/onu-advierte-colombia-de-la-contaminacion-por-mercurio-que-deja-la-mineria-ilegal-de-oro-360833.html" target="_blank">proceso.com.mx</a></div>
+        </div>
+      </div>
+
+      <div class="bib-item">
+        <div class="bib-num">[9]</div>
+        <div class="bib-content">
+          <div class="bib-source">Mongabay Latam / Ladera Sur</div>
+          <div class="bib-title">El mercurio es apenas la punta del iceberg en la contaminación producida por la minería de oro. Entrevista a Jesús Olivero-Verbel, Premio Academia Colombiana de Ciencias Exactas Físicas y Naturales 2024.</div>
+          <div class="bib-date">Jun 2025.</div>
+          <div class="bib-url"><a href="https://es.mongabay.com/2025/06/mercurio-contaminacion-mineria-oro-entrevista-jesus-olivero/" target="_blank">es.mongabay.com</a></div>
+        </div>
+      </div>
+
+      <div class="bib-item">
+        <div class="bib-num">[10]</div>
+        <div class="bib-content">
+          <div class="bib-source">Connectas — Periodismo de investigación</div>
+          <div class="bib-title">Río Atrato, Chocó: contaminación, mercurio, minería y sentencias incumplidas. Sentencia T-622 de 2016 de la Corte Constitucional de Colombia — Atrato como sujeto de derechos.</div>
+          <div class="bib-date">2021 (sentencia original: 2016).</div>
+          <div class="bib-url"><a href="https://www.connectas.org/especiales/colombia-sentencias-ambientales-incumplidas/atrato-2.html" target="_blank">connectas.org</a></div>
+        </div>
+      </div>
+
+      <div class="bib-item">
+        <div class="bib-num">[11]</div>
+        <div class="bib-content">
+          <div class="bib-source">Corresponsables Colombia</div>
+          <div class="bib-title">Meprecol: "el sector minero debe ser sostenible social, económica y ambientalmente". Impactos de la minería ilegal en comunidades afrocolombianas e indígenas del Chocó.</div>
+          <div class="bib-date">Ene 2024.</div>
+          <div class="bib-url"><a href="https://www.corresponsables.com/col/entrevistas/meprecol-el-sector-minero-debe-ser-sostenible-social-economica-y-ambientalmente/" target="_blank">corresponsables.com/col</a></div>
+        </div>
+      </div>
+
+      <div class="bib-item">
+        <div class="bib-num">[Datos]</div>
+        <div class="bib-content">
+          <div class="bib-source">IDEAM / Ministerio de Ambiente — Plan Integral de Contención de la Deforestación 2023–2026</div>
+          <div class="bib-title">Sistema de Monitoreo de Bosques y Carbono. 44 Núcleos Activos de Deforestación identificados a nivel nacional; 70 % en bioma Amazónico.</div>
+          <div class="bib-date">Bogotá, mar 2025.</div>
+          <div class="bib-url"><a href="https://www.minambiente.gov.co/wp-content/uploads/2025/03/Plan-Integral-Contencion-Deforestacion-2023-2026.pdf" target="_blank">minambiente.gov.co · PDF</a></div>
+        </div>
+      </div>
+
+      <div class="bib-item">
+        <div class="bib-num">[SHP]</div>
+        <div class="bib-content">
+          <div class="bib-source">Sistema de monitoreo de alertas tempranas de deforestación</div>
+          <div class="bib-title">dashboard_alerts_shapefile — Archivo shapefile con tabla de atributos en portugués. Filtro aplicado: department = Chocó / vpressao = mining.</div>
+          <div class="bib-date">Datos: períodos 2024–2025. Total: 17 alertas · 82,92 ha.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:1.5rem;padding-top:1.25rem;border-top:2px solid var(--green-100);font-size:12px;color:var(--gray-500);font-style:italic;line-height:1.6;">
+      Informe elaborado a partir de datos SIG (shapefile) complementados con fuentes periodísticas e institucionales verificadas. Todas las fuentes son de acceso público y corresponden a publicaciones de 2024–2025 de organismos del Estado colombiano, Naciones Unidas, WWF y medios especializados en periodismo ambiental (Mongabay Latam, Connectas, Associated Press).
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Informe generado a partir de <strong>dashboard_alerts_shapefile</strong> &nbsp;·&nbsp;
+  Filtro: Chocó / minería &nbsp;·&nbsp; 17 alertas · 82,92 ha &nbsp;·&nbsp; 2024–2025 &nbsp;·&nbsp;
+  11 fuentes verificadas
+</footer>
+
+</body>
+</html>
